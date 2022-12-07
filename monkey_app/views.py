@@ -3,7 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.http import HttpResponse, HttpResponseRedirect
 from monkey_app.models import Article, Profile
 from django.db.models import Sum, Max, Min, Count, Avg, Value
-from .forms import ArticleForm
+from .forms import ArticleForm, RegisterUserForm
 from django.urls import reverse
 
 
@@ -92,4 +92,16 @@ def login(request):
 
     
 def register(request):
-    return render(request, 'monkey_app/register.html')
+    
+    if request.method == 'POST':
+        form = RegisterUserForm(request.POST)
+        if form.is_valid():
+            form.save()
+            return HttpResponseRedirect(reverse('login'))
+    else: 
+        form = RegisterUserForm
+
+    context = {
+        'form': form,
+    }
+    return render(request, 'monkey_app/register.html', context=context)

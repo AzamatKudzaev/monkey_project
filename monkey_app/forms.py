@@ -1,6 +1,7 @@
 from django import forms
-from .models import Article
-
+from .models import Article, Profile
+from django.contrib.auth.models import User
+from django.contrib.auth.forms import UserCreationForm
 
 # class ArticleForm(forms.Form):
 
@@ -43,3 +44,9 @@ class ArticleForm(forms.ModelForm):
                 'required': 'Поле обязательно'
             }
         }
+
+class RegisterUserForm(UserCreationForm):
+    class Meta:
+        model = User
+        fields = ('username', 'password1', 'password2')
+        
