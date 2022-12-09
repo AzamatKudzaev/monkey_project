@@ -3,39 +3,37 @@
 
 {% block content %}
 <div class="content">
-    <div class="main">
-        <h3>Тут пока дизайна тоже маловато</h3>
-        <div class="create-article-form">
-            <form method="post" enctype="multipart/form-data" novalidate="novalidate">
-                {% csrf_token %}
-                <div class="field-wrapper">
-                    <div class="label_tag">{{ form.title.label_tag}}</div>
-                    <div class="errorlist">{{ form.title.errors }}</div>
-                    <div class="field title-field">{{ form.title }}</div>
-                </div>
+    <h3>Тут пока дизайна тоже маловато</h3>
+    <div class="create-article-form">
+        <form method="post" enctype="multipart/form-data" novalidate="novalidate">
+            {% csrf_token %}
+            <div class="field-wrapper">
+                <div class="label_tag">{{ form.title.label_tag}}</div>
+                <div class="errorlist">{{ form.title.errors }}</div>
+                <div class="field title-field">{{ form.title }}</div>
+            </div>
 
-                <div class="field-wrapper">
-                    <div class="label_tag">{{ form.text.label_tag}}</div>
-                    <div class="errorlist">{{ form.text.errors }}</div>
-                    <div class="field text-field">{{ form.text }}</div>
-                </div>
+            <div class="field-wrapper">
+                <div class="label_tag">{{ form.text.label_tag}}</div>
+                <div class="errorlist">{{ form.text.errors }}</div>
+                <div class="field text-field">{{ form.text }}</div>
+            </div>
 
-                <div class="field-wrapper">
-                    <div class="label_tag">{{ form.image.label_tag}}</div>
-                    {% if article.image %}<img src="{{ article.image.url }}" alt="" class="show-article-img">{% endif %}
-                    <div class="errorlist">{{ form.image.errors }}</div>
-                    <div class="field image-field">{{ form.image }}</div>
-                </div>
+            <div class="field-wrapper">
+                <div class="label_tag">{{ form.image.label_tag}}</div>
+                {% if article.image %}<img src="{{ article.image.url }}" alt="" class="show-article-img">{% endif %}
+                <div class="errorlist">{{ form.image.errors }}</div>
+                <div class="field image-field">{{ form.image }}</div>
+            </div>
 
-                <div class="field-wrapper">
-                    <div class="label_tag">{{ form.article_kind.label_tag}}</div>
-                    <div class="errorlist">{{ form.article_kind.errors }}</div>
-                    <div class="field article_kind-field">{{ form.article_kind }}</div>
-                </div>
+            <div class="field-wrapper">
+                <div class="label_tag">{{ form.article_kind.label_tag}}</div>
+                <div class="errorlist">{{ form.article_kind.errors }}</div>
+                <div class="field article_kind-field">{{ form.article_kind }}</div>
+            </div>
 
-                <div class="field"><button type="submit" id="send-button">Отправить статью</div>
-            </form>
-        </div>
-    </div> 
+            <div class="field"><button type="submit" id="send-button">Отправить статью</div>
+        </form>
+    </div>
 </div>
 {% endblock %} 

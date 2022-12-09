@@ -2,37 +2,35 @@
 
 {% block content %}
     <div class="content">
-        <div class="main">
-            <p class="add-article"><a href="{% url 'create_article' %} ">Добавить статью</a></p>
-            {% if not articles %}
-            <p class="articles-count"><span>Статей нет</span></p>
-            {% else %}
-            <p class="articles-count"><span>Всего статей: {{agg.pk__count}}</span></p>
-            {% endif %}
-            <div class="articles-space">
-                {% for article in articles %}
-                    {% if article.publication != False %}
-                    <a href="{{ article.get_absolute_url }}" class="article">
-                        {% if article.image %}
-                        <img class='article-img' src="{{article.image.url}}">
-                        {% endif %}
-                        <div class="article-title">{{article.title}}</div>
-                        {% if not article.first_name %}
-                        <div class="article-author">author - unknown</div>
-                        {% else %}
-                        <div class="article-author">author - <a href="#">{{article.profile}}</a></div>
-                        {% endif %}
-                        <div>kind - {{article.article_kind}}</div>
-                        <div> last update: {{article.change_date}}</div>
-                        <div class="article-statistics">
-                            <span class="article-statistics-object">Views: {{article.article_views}}</span>
-                            <span class="article-statistics-object">Likes: {{article.article_likes}}</span>
-                            <span class="article-statistics-object">Dislikes: {{article.article_dislikes}}</span>
-                        </div>
-                    </a>
-                    {% endif %}   
-                {% endfor %}
-            </div>
+        <p class="add-article"><a href="{% url 'create_article' %} ">Добавить статью</a></p>
+        {% if not articles %}
+        <p class="articles-count"><span>Статей нет</span></p>
+        {% else %}
+        <p class="articles-count"><span>Всего статей: {{agg.pk__count}}</span></p>
+        {% endif %}
+        <div class="articles-space">
+            {% for article in articles %}
+                {% if article.publication != False %}
+                <a href="{{ article.get_absolute_url }}" class="article">
+                    {% if article.image %}
+                    <img class='article-img' src="{{article.image.url}}">
+                    {% endif %}
+                    <div class="article-title">{{article.title}}</div>
+                    {% if not article.first_name %}
+                    <div class="article-author">author - unknown</div>
+                    {% else %}
+                    <div class="article-author">author - <a href="#">{{article.profile}}</a></div>
+                    {% endif %}
+                    <div>kind - {{article.article_kind}}</div>
+                    <div> last update: {{article.change_date}}</div>
+                    <div class="article-statistics">
+                        <span class="article-statistics-object">Views: {{article.article_views}}</span>
+                        <span class="article-statistics-object">Likes: {{article.article_likes}}</span>
+                        <span class="article-statistics-object">Dislikes: {{article.article_dislikes}}</span>
+                    </div>
+                </a>
+                {% endif %}   
+            {% endfor %}
         </div>
     </div>
 {% endblock %}

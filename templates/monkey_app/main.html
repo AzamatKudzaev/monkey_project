@@ -2,35 +2,33 @@
 
 {% block content %}
 <div class="content">
-    <div class="main">
-        <div class="first-block">
-            <div class="greeting-block">
-                <span class="greeting-span">Сайт со статьями, потом тут будет нормальный текст и дизайн</span>
-            </div>
+    <div class="first-block">
+        <div class="greeting-block">
+            <span class="greeting-span">Сайт со статьями, потом тут будет нормальный текст и дизайн</span>
         </div>
-        <div class="second-block">
-            <div class="popular-articles">  
-                Самые просматриваемые статьи:
-            </div>   
-            <div class="popular-articles-show">
-                {% if not sorted_articles %}
-                    <p class="articles-dont-exist">Пока статей нет, либо у всех ноль просмотров</p>
-                {% else %}
-                {% for article in sorted_articles %}
-                    <a href="{{ article.get_absolute_url }}">
-                        <p class="articles-list">
-                            <span class="article-list-object">views: {{article.article_views}}</span>
-                            <span class="article-list-title article-list-object">{{article.title}}</span>
-                            <span class="article-list-object">{{article.change_date}}</span>
-                            <span class="article-list-object">likes: {{article.article_likes}}</span>
-                            <span class="article-list-object">dislikes: {{article.article_dislikes}}</span>
-                            <span class="article-list-object">kind: {{article.article_kind}}</span>
-                        </p>
-                    </a>
-                    {% endfor %}
-                {% endif %}
-            </div>
-        </div>  
     </div>
+    <div class="second-block">
+        <div class="popular-articles">  
+            Самые просматриваемые статьи:
+        </div>   
+        <div class="popular-articles-show">
+            {% if not sorted_articles %}
+                <p class="articles-dont-exist">Пока статей нет, либо у всех ноль просмотров</p>
+            {% else %}
+            {% for article in sorted_articles %}
+                <a href="{{ article.get_absolute_url }}">
+                    <p class="articles-list">
+                        <span class="article-list-object">views: {{article.article_views}}</span>
+                        <span class="article-list-title article-list-object">{{article.title}}</span>
+                        <span class="article-list-object">{{article.change_date}}</span>
+                        <span class="article-list-object">likes: {{article.article_likes}}</span>
+                        <span class="article-list-object">dislikes: {{article.article_dislikes}}</span>
+                        <span class="article-list-object">kind: {{article.article_kind}}</span>
+                    </p>
+                </a>
+                {% endfor %}
+            {% endif %}
+        </div>
+    </div>  
 </div>
 {% endblock %}

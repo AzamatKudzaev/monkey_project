@@ -2,12 +2,10 @@
 
 {% block content %}
     <div class="context">
-        <div class="main">
-            <form method="post">
-                {% csrf_token %}
-                {{ form }}
-                <button type="submit">Зарегестрироваться</button>
-            </form>
-        </div>
+        <form method="post">
+            {% csrf_token %}
+            {{ form }}
+            <button type="submit">Зарегестрироваться</button>
+        </form>
     </div>
 {% endblock %}
