@@ -5,6 +5,11 @@ from monkey_app.models import Article, Profile
 from django.db.models import Sum, Max, Min, Count, Avg, Value
 from .forms import ArticleForm, RegisterUserForm
 from django.urls import reverse
+from django.contrib.auth.forms import AuthenticationForm
+from django.contrib.auth.models import User
+from django.contrib.auth.views import LoginView
+from django.contrib.auth import logout 
+
 
 
 def main(request):
@@ -64,8 +69,8 @@ def create_article(request):
     return render(request, 'monkey_app/create_article.html', context=context)
 
 
-def show_profile(request, profile_name):
-    return HttpResponse('profile -', profile_name)
+def show_profile(request, profile_username):
+    return HttpResponse('profile -', profile_username)
 
 
 def edit_article(request, id_article):
@@ -86,9 +91,9 @@ def edit_article(request, id_article):
     return render(request, 'monkey_app/create_article.html', context=context)
 
 
-def login(request):
-    
-    return render(request, 'monkey_app/login.html')
+class LoginUser(LoginView):
+    form = AuthenticationForm
+    template_name = 'monkey_app/login.html'
 
     
 def register(request):
@@ -99,9 +104,14 @@ def register(request):
             form.save()
             return HttpResponseRedirect(reverse('login'))
     else: 
-        form = RegisterUserForm
+        form = RegisterUserForm()
 
     context = {
         'form': form,
     }
     return render(request, 'monkey_app/register.html', context=context)
+
+
+def logout_view(request):
+    logout(request)
+    return HttpResponseRedirect(reverse('main'))
