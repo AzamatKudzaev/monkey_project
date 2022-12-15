@@ -2,7 +2,9 @@
 
 {% block content %}
     <div class="content">
+        {% if user.is_authenticated %}
         <p class="add-article"><a href="{% url 'create_article' %} ">Добавить статью</a></p>
+        {% endif %}
         {% if not articles %}
         <p class="articles-count"><span>Статей нет</span></p>
         {% else %}
@@ -16,11 +18,7 @@
                     <img class='article-img' src="{{article.image.url}}">
                     {% endif %}
                     <div class="article-title">{{article.title}}</div>
-                    {% if not article.first_name %}
-                    <div class="article-author">author - unknown</div>
-                    {% else %}
-                    <div class="article-author">author - <a href="#">{{article.profile}}</a></div>
-                    {% endif %}
+                    <div class="article-author">author: {{article.author}}</div>
                     <div>kind - {{article.article_kind}}</div>
                     <div> last update: {{article.change_date}}</div>
                     <div class="article-statistics">

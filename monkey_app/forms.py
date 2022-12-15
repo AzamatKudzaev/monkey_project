@@ -48,5 +48,17 @@ class ArticleForm(forms.ModelForm):
 class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
-        fields = ('username', 'password1', 'password2')
+        fields = ('username', 'password1', 'password2', 'first_name', 'last_name', 'email')
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ('age', 'about_me', 'gender', 'photo')
+        labels = {
+            'age': 'Возраст',
+            'about_me': 'Обо мне',
+            'gender': 'Пол',
+            'photo': 'Фото профиля',
+        }   
+
 

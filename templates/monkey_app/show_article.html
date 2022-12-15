@@ -4,9 +4,12 @@
 <a href="{% url 'articles'%}" class="back-button">Ко всем статьям</a>
     <div class="content">
         <div class="show-article-container">
-        <a href="{% url 'edit-article' id_article=article.pk %}" class="edit-article-link">Редактровать статью</a>
+        {% if article.author == user %}
+            <a href="{% url 'edit-article' id_article=article.pk %}" class="edit-article-link">Редактровать статью</a>
+        {% endif %}
             <div class="show-article" >
                 <h2>{{article.title}}</h2>
+                <h3>Author: <a href="{% url 'show-profile' article.author %}">{{article.author}}</a></h3>
                 <p>{{article.text}}</p>
                 {% if article.image %}
                         <img class="show-article-img" src="{{article.image.url}}">

@@ -11,7 +11,7 @@
             <a href="#" class="col nav-button">пусто</a>
         </div>
         {% if request.user.is_authenticated %}
-            <div class="login-register" ><a href="{% url 'show_profile' user.username%}">{{ user.username }}</a> | <a href="{% url 'logout' %}">Выйти</a></div>
+            <div class="login-register" ><a href="{% url 'show-my-profile' user.username %}">{{ user.username }}</a> | <a href="{% url 'logout' %}">Выйти</a></div>
         {% else %}
         <div class="login-register"><a href="{% url 'login' %}">Вход</a> | <a href="{% url 'register' %}">Регистрация</a></div>
         {% endif %}
