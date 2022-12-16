@@ -1,14 +1,15 @@
-
-from django.shortcuts import render, get_object_or_404
-from django.http import HttpResponse, HttpResponseRedirect
-from monkey_app.models import Article, Profile
-from django.db.models import Sum, Max, Min, Count, Avg, Value
-from .forms import ArticleForm, RegisterUserForm, ProfileForm
-from django.urls import reverse
+from django.contrib.auth import logout
+from django.contrib.auth.decorators import login_required
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
-from django.contrib.auth import logout
+from django.db.models import Count
+from django.http import HttpResponseRedirect, HttpResponseNotAllowed, Http404
+from django.shortcuts import render, get_object_or_404
+from django.urls import reverse
+
+from monkey_app.models import Article
+from .forms import ArticleForm, RegisterUserForm, ProfileForm
 
 
 def main(request):
@@ -89,16 +90,25 @@ def show_my_profile(request, profile_username):
     return render(request, 'monkey_app/show_my_profile.html', context=context)
 
 
+@login_required
 def edit_article(request, id_article):
     article = Article.objects.get(pk=id_article)
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES, instance=article)
         if form.is_valid():
-            form.save()
+            # Здесь было бы неплохо проверить, что юзер изменяющий статью совпадает с автором статьи
+            if request.user == form.instance.author:
+                form.save()
+            else:
+                raise Http404
         return HttpResponseRedirect(reverse("show-article", kwargs={"id_article": article.pk}))
 
     else:
-        form = ArticleForm(instance=article)
+        # а здесь запрещаем просмотр, если
+        if request.user == article.author:
+            form = ArticleForm(instance=article)
+        else:
+            raise Http404
 
     context = {
         'form': form,
@@ -113,7 +123,6 @@ class LoginUser(LoginView):
 
 
 def register(request):
-
     if request.method == 'POST':
         user_form = RegisterUserForm(request.POST)
         profile_form = ProfileForm(request.POST)
@@ -146,4 +155,3 @@ def show_profile(request, profile_username):
         'profile': profile
     }
     return render(request, 'monkey_app/show_profile.html', context=context)
-
