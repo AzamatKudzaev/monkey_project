@@ -44,9 +44,9 @@ class Profile(models.Model):
 class Article(models.Model):
 
     ARTICLES_KINDS = {
-        ('Scientific', 'Scientific'),
-        ('Review', 'Review'),
-        ('Informational', 'Informational')
+        (1, 'Scientific'),
+        (2, 'Review'),
+        (3, 'Informational')
     }
 
     author = models.ForeignKey(
@@ -59,12 +59,8 @@ class Article(models.Model):
     change_date = models.DateTimeField(auto_now=True, null=True, blank=True)
     article_views = models.IntegerField(default=0, null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
-    article_likes = models.IntegerField(null=True)
-    article_dislikes = models.IntegerField(null=True)
-    article_kind = models.CharField(
-        max_length=25,
-        choices=ARTICLES_KINDS,
-        default='NS'
+    article_kind = models.SmallIntegerField(
+        choices=ARTICLES_KINDS
     )
 
     def __str__(self):
