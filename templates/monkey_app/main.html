@@ -23,7 +23,7 @@
                         <span class="article-list-object">{{article.change_date}}</span>
                         <span class="article-list-object">likes: {{article.article_likes}}</span>
                         <span class="article-list-object">dislikes: {{article.article_dislikes}}</span>
-                        <span class="article-list-object">kind: {{article.article_kind}}</span>
+                        <span class="article-list-object">kind: {{article.get_article_kind_display}}</span>
                     </p>
                 </a>
                 {% endfor %}

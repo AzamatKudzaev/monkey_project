@@ -43,11 +43,11 @@ class Profile(models.Model):
 
 class Article(models.Model):
 
-    ARTICLES_KINDS = {
-        ('Scientific', 'Scientific'),
-        ('Review', 'Review'),
-        ('Informational', 'Informational')
-    }
+    ARTICLES_KINDS = (
+        (1, 'Scientific'),
+        (2, 'Review'),
+        (3, 'Informational')
+    )
 
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)  # article's author
@@ -59,12 +59,8 @@ class Article(models.Model):
     change_date = models.DateTimeField(auto_now=True, null=True, blank=True)
     article_views = models.IntegerField(default=0, null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
-    article_likes = models.IntegerField(null=True)
-    article_dislikes = models.IntegerField(null=True)
-    article_kind = models.CharField(
-        max_length=25,
+    article_kind = models.SmallIntegerField(
         choices=ARTICLES_KINDS,
-        default='NS'
     )
 
     def __str__(self):
