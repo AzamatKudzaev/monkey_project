@@ -60,18 +60,7 @@ def create_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            author = request.user
-            title = form.cleaned_data['title']
-            text = form.cleaned_data['text']
-            image = form.cleaned_data['image']
-            article_kind = form.cleaned_data['article_kind']
-            Article.objects.create(
-                author=author,
-                title=title,
-                text=text,
-                image=image,
-                article_kind=article_kind
-            )
+            form.save()
             return HttpResponseRedirect(reverse('articles'))
     else:
         form = ArticleForm()
