@@ -19,7 +19,7 @@
                     {% endif %}
                     <div class="article-title">{{article.title}}</div>
                     <div class="article-author">author: {{article.author}}</div>
-                    <div>kind - {{article.article_kind}}</div>
+                    <div>kind - {{article.get_article_kind_display}}</div>
                     <div> last update: {{article.change_date}}</div>
                     <div class="article-statistics">
                         <span class="article-statistics-object">Views: {{article.article_views}}</span>

@@ -10,6 +10,7 @@
             <div class="show-article" >
                 <h2>{{article.title}}</h2>
                 <h3>Author: <a href="{% url 'show-profile' article.author %}">{{article.author}}</a></h3>
+                <p>Article kind: {{article.get_article_kind_display}}</p>
                 <p>{{article.text}}</p>
                 {% if article.image %}
                         <img class="show-article-img" src="{{article.image.url}}">

@@ -43,11 +43,11 @@ class Profile(models.Model):
 
 class Article(models.Model):
 
-    ARTICLES_KINDS = {
+    ARTICLES_KINDS = (
         (1, 'Scientific'),
         (2, 'Review'),
         (3, 'Informational')
-    }
+    )
 
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)  # article's author
@@ -60,7 +60,7 @@ class Article(models.Model):
     article_views = models.IntegerField(default=0, null=True, blank=True)
     image = models.ImageField(upload_to='images/', null=True, blank=True)
     article_kind = models.SmallIntegerField(
-        choices=ARTICLES_KINDS
+        choices=ARTICLES_KINDS,
     )
 
     def __str__(self):
