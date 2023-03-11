@@ -22,6 +22,14 @@ class ArticleForm(forms.ModelForm):
             }
         }
 
+    def clean_title(self):
+        first_letter = self.cleaned_data['title'][0]
+        if first_letter.isalpha():
+            title = first_letter.upper() + self.cleaned_data['title'][1:]
+            return title
+        return self.cleaned_data['title']
+
+
 class RegisterUserForm(UserCreationForm):
     class Meta:
         model = User
