@@ -51,8 +51,7 @@ class Article(models.Model):
 
     author = models.ForeignKey(
         User, on_delete=models.SET_NULL, null=True, blank=True)  # article's author
-    title = models.CharField(max_length=100, validators={
-                             MinLengthValidator: 10}, null=True, blank=True)
+    title = models.CharField(max_length=100, null=True, blank=True)
     text = models.TextField(max_length=2000, null=True, blank=True)
     publication = models.BooleanField(default=True, null=True, blank=True)
     pub_date = models.DateTimeField(auto_now_add=True, null=True, blank=True)

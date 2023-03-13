@@ -5,7 +5,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth.views import LoginView
 from django.db.models import Count
 from django.http import HttpResponseRedirect, HttpResponseNotAllowed, Http404
-from django.shortcuts import render, get_object_or_404
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
 
 from monkey_app.models import Article
@@ -60,9 +60,10 @@ def create_article(request):
     if request.method == 'POST':
         form = ArticleForm(request.POST, request.FILES)
         if form.is_valid():
-            print(form.cleaned_data)
-            form.save()
-            return HttpResponseRedirect(reverse('articles'))
+            new_article = form.save()
+            new_article.author = request.user
+            new_article.save()
+            return redirect(new_article)
     else:
         form = ArticleForm()
 

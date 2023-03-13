@@ -2,6 +2,7 @@ from django import forms
 from .models import Article, Profile
 from django.contrib.auth.models import User
 from django.contrib.auth.forms import UserCreationForm, AuthenticationForm
+from django.core.exceptions import ValidationError
 
 class ArticleForm(forms.ModelForm):
     class Meta:
@@ -23,11 +24,14 @@ class ArticleForm(forms.ModelForm):
         }
 
     def clean_title(self):
-        first_letter = self.cleaned_data['title'][0]
-        if first_letter.isalpha():
+        title = self.cleaned_data['title']
+        if len(title) < 10:
+            raise ValidationError('Заголовок должен быть не менее 10 символов')
+        if title.isalpha():
+            first_letter = title[0]
             title = first_letter.upper() + self.cleaned_data['title'][1:]
             return title
-        return self.cleaned_data['title']
+        raise ValidationError('Заголовок должен начинаться со слова')
 
 
 class RegisterUserForm(UserCreationForm):
